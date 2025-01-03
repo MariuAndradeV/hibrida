@@ -1,17 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Retroalimentación
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <ion-card class="ion-padding-bottom ion-margin-bottom">
+
+    <ion-card-header>
+      <ion-card-title>Su opinión es importante</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content class="ion-text-center">
+
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+         
+        <ion-select formControlName="score" label="Calificación" placeholder="Seleccione un valor">
+          <ion-select-option value="bueno">Bueno</ion-select-option>
+          <ion-select-option value="regular">Regular</ion-select-option>
+          <ion-select-option value="malo">Malo</ion-select-option>
+        </ion-select>
+
+        <ion-textarea formControlName="opinion" label="Opinión" placeholder="Agregue aquí su descripción"></ion-textarea>
+         
+        <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
+         
+      </form>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="ion-padding-bottom ion-margin-bottom">
+
+        <ion-card-header>
+            <ion-card-title>Opiniones</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+
+        <ion-list>
+
+            <!-- CARGA DE DATOS - INICIO -->
+       
+            <!-- CARGA DE DATOS - FIN -->
+
+        </ion-list>
+
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
+
