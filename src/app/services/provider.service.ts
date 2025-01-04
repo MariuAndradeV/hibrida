@@ -19,12 +19,12 @@ export class ProviderService {
     const colRef = collection(this.firestoreService, collectionName);
     return addDoc(colRef, data);
   }
+  
 
-    /* Método para leer una colección */
-    readCollection(collectionName: string): Observable<any[]> {
-      const colRef = collection(this.firestoreService, collectionName);
-      return collectionData(colRef, { idField: 'id' });
-    }
-
+  /* Método para leer una colección */
+  readCollection(collectionName: string): Observable<any[]> {
+    const colRef = collection(this.firestoreService, collectionName);
+    return collectionData(colRef, { idField: 'id' });
+  }
 
 }

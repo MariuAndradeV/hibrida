@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Teachable Machine
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,9 +9,52 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
+      <ion-title size="large">Teachable Machine</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <ion-content [fullscreen]="true">
+	        
+    <!-- CARGA DE IMAGEN - INICIO -->
+    @if(imageReady()) {
+      <ion-card>
+
+        <img [src]="imageUrl()" alt="Imagen seleccionada" />
+          <!-- CARGA DE PREDICCIÓN - INICIO -->
+          @if(modelLoaded()) {
+            <div class="ion-text-center ion-padding-top ion-padding-bottom">
+              <ion-button (click)="predict()" fill="outline" color="success" >Predecir</ion-button>
+            </div>
+
+            <ion-list>
+              <ion-item>
+                <ion-label>Clases:  {{ classLabels  }} </ion-label>
+              </ion-item>
+
+                       <!-- Itere sobre la lista de predicciones -->
+              @for (item of predictions; track $index) {
+                <ion-item>
+                    <ion-label> {{  item?.className  }} :  {{  item?.probability | percent  }} </ion-label>
+                  </ion-item>
+              }
+            </ion-list>
+
+          }
+          <!-- CARGA DE PREDICCIÓN - FIN -->
+      </ion-card>
+    }
+    <!-- CARGA DE IMAGEN - FIN -->       
+
+</ion-content>
+
+ <!-- Referencia en plantilla #fileInput, callback para el evento change y oculte el elemento -->
+ <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
+
+ <!-- Disparo del evento click de fileInput -->
+ <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+     <ion-fab-button (click)="fileInput.click()">
+         <ion-icon name="cloud-upload-outline"></ion-icon>
+     </ion-fab-button>
+ </ion-fab>
+
 </ion-content>

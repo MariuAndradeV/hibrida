@@ -53,4 +53,17 @@ export class Tab2Page {
           this.myForm.reset()
     });
   }
+
+  /* Al inicializar, carga los datos  */
+      ngOnInit() {
+      this.loadData();
+  }
+
+  loadData() {
+      this.providerService.readCollection(this.collectionName).subscribe((data) => {
+          this.dataList = data;
+      });
+  }
+
 }
+

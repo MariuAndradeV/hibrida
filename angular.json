@@ -32,7 +32,10 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "scripts": [                     	
+              "src/assets/javascript/tf.min.js",
+              "src/assets/javascript/teachablemachine-image.min.js"
+            ]
           },
           "configurations": {
             "production": {

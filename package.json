@@ -28,6 +28,7 @@
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
     "@ionic/angular": "^8.0.0",
+    "@tensorflow/tfjs": "^4.22.0",
     "firebase": "^10.14.1",
     "hibrida": "file:",
     "ionicons": "^7.2.1",

@@ -42,11 +42,14 @@
         <ion-card-content>
 
         <ion-list>
-
-            <!-- CARGA DE DATOS - INICIO -->
-       
-            <!-- CARGA DE DATOS - FIN -->
-
+          <!-- CARGA DE DATOS - INICIO -->
+          @for (datum of dataList; track $index) {
+              <ion-item>
+                <ion-label>  {{  datum?.score  }}  </ion-label>
+                <ion-label>  {{  datum?.opinion  }}  </ion-label>
+              </ion-item>
+          }
+          <!-- CARGA DE DATOS - FIN -->
         </ion-list>
 
         </ion-card-content>
