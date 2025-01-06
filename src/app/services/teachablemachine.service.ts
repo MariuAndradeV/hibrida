@@ -13,6 +13,7 @@ export class TeachablemachineService {
 
   constructor() { }
 
+
   async loadModel() {
       try {
           const modelURL = this.URL + 'model.json';
@@ -40,6 +41,4 @@ export class TeachablemachineService {
 
       return await this.model.predict(imageElement);
     }
-
-
 }

@@ -22,53 +22,38 @@ import { PercentPipe } from '@angular/common';
 })
 
 export class Tab1Page {
+
+
   /* Declare la referencia al elemento con el id image */
   @ViewChild('image', { static: false }) imageElement!: ElementRef<HTMLImageElement>;
 
   imageReady = signal(false)
   imageUrl = signal("")
 
+  /* El método onSubmit para enviar los datos del formulario mediante el servicio */
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
 
+    if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        console.log(file)
 
-    /* El método onSubmit para enviar los datos del formulario mediante el servicio */
-    onFileSelected(event: Event): void {
-      const input = event.target as HTMLInputElement;
+        const reader = new FileReader();
 
-      if (input.files && input.files.length > 0) {
-          const file = input.files[0];
-          console.log(file)
+        // Convertir el archivo a una URL base64 para mostrarlo en el html
+        reader.onload = () => {
+            this.imageUrl.set(reader.result as string)
+            this.imageReady.set(true)
+        };
 
-          const reader = new FileReader();
-
-          // Convertir el archivo a una URL base64 para mostrarlo en el html
-             reader.onload = () => {
-              this.imageUrl.set(reader.result as string)
-              this.imageReady.set(true)
-          };
-
-          reader.readAsDataURL(file); // Leer el archivo como base64
-      }
+        reader.readAsDataURL(file); // Leer el archivo como base64
+    }
   }
-
-  /* Lista de predicciones */
-  predictions: any[] = [];
-
-
-  /* Método para obtener la predicción a partir de la imagen */
-  async predict() {
-      try {
-          const image = this.imageElement.nativeElement;
-          this.predictions = await this.teachablemachine.predict(image);
-      } catch (error) {
-          console.error(error);
-          alert('Error al realizar la predicción.');
-      }
-  }
-  
 
   /* Declare los atributos para almacenar el modelo y la lista de clases */
   modelLoaded = signal(false);
   classLabels: string[] = [];
+
 
   /* Registre el servicio en el constructor */
   constructor(private teachablemachine: TeachablemachineService) {              
@@ -77,9 +62,28 @@ export class Tab1Page {
 
   /* Método ngOnInit para cargar el modelo y las clases */
   async ngOnInit() {
-      await this.teachablemachine.loadModel()
-      this.classLabels = this.teachablemachine.getClassLabels()
-      this.modelLoaded.set(true)
+    await this.teachablemachine.loadModel()
+    this.classLabels = this.teachablemachine.getClassLabels()
+    this.modelLoaded.set(true)
   }
 
+  /* Lista de predicciones */
+  predictions: any[] = [];
+
+  /* Método para obtener la predicción a partir de la imagen */
+  async predict() {
+
+    if (!this.imageElement) {
+      console.error('El elemento de la imagen no está inicializado.');
+      alert('Primero debes cargar una imagen.');
+      return;
+  }
+      try {
+          const image = this.imageElement.nativeElement;
+          this.predictions = await this.teachablemachine.predict(image);
+      } catch (error) {
+          console.error(error);
+          alert('Error al realizar la predicción.');
+      }
+  }
 }

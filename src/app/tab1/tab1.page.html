@@ -19,8 +19,8 @@
     @if(imageReady()) {
       <ion-card>
 
-        <img [src]="imageUrl()" alt="Imagen seleccionada" />
-          <!-- CARGA DE PREDICCIÓN - INICIO -->
+        <img  #image [src]="imageUrl()" alt="Selected Image" />
+        <!-- CARGA DE PREDICCIÓN - INICIO -->
           @if(modelLoaded()) {
             <div class="ion-text-center ion-padding-top ion-padding-bottom">
               <ion-button (click)="predict()" fill="outline" color="success" >Predecir</ion-button>
@@ -31,7 +31,7 @@
                 <ion-label>Clases:  {{ classLabels  }} </ion-label>
               </ion-item>
 
-                       <!-- Itere sobre la lista de predicciones -->
+              <!-- Itere sobre la lista de predicciones -->
               @for (item of predictions; track $index) {
                 <ion-item>
                     <ion-label> {{  item?.className  }} :  {{  item?.probability | percent  }} </ion-label>
