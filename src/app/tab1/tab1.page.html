@@ -13,48 +13,44 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content [fullscreen]="true">
-	        
-    <!-- CARGA DE IMAGEN - INICIO -->
-    @if(imageReady()) {
-      <ion-card>
+  <!-- CARGA DE IMAGEN - INICIO -->
+  <ng-container *ngIf="imageReady()">
+    <ion-card>
+      <img #image [src]="imageUrl()" alt="Selected Image" />
 
-        <img  #image [src]="imageUrl()" alt="Selected Image" />
-        <!-- CARGA DE PREDICCIÓN - INICIO -->
-          @if(modelLoaded()) {
-            <div class="ion-text-center ion-padding-top ion-padding-bottom">
-              <ion-button (click)="predict()" fill="outline" color="success" >Predecir</ion-button>
-            </div>
+      <!-- CARGA DE PREDICCIÓN - INICIO -->
+      <ng-container *ngIf="modelLoaded()">
+        <div class="ion-text-center ion-padding-top ion-padding-bottom">
+          <ion-button (click)="predict()" fill="outline" color="success">
+            Predecir
+          </ion-button>
+        </div>
 
-            <ion-list>
-              <ion-item>
-                <ion-label>Clases:  {{ classLabels  }} </ion-label>
-              </ion-item>
+        <ion-list>
+          <ion-item>
+            <ion-label>Clases: {{ classLabels }}</ion-label>
+          </ion-item>
 
-              <!-- Itere sobre la lista de predicciones -->
-              @for (item of predictions; track $index) {
-                <ion-item>
-                    <ion-label> {{  item?.className  }} :  {{  item?.probability | percent  }} </ion-label>
-                  </ion-item>
-              }
-            </ion-list>
+          <!-- Iterar sobre la lista de predicciones -->
+          <ion-item *ngFor="let item of predictions">
+            <ion-label>
+              {{ item?.className }}: {{ item?.probability | percent }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ng-container>
+      <!-- CARGA DE PREDICCIÓN - FIN -->
+    </ion-card>
+  </ng-container>
+  <!-- CARGA DE IMAGEN - FIN -->
 
-          }
-          <!-- CARGA DE PREDICCIÓN - FIN -->
-      </ion-card>
-    }
-    <!-- CARGA DE IMAGEN - FIN -->       
+  <!-- Referencia en plantilla #fileInput, callback para el evento change y oculta el elemento -->
+  <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
 
-</ion-content>
-
- <!-- Referencia en plantilla #fileInput, callback para el evento change y oculte el elemento -->
- <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden />
-
- <!-- Disparo del evento click de fileInput -->
- <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-     <ion-fab-button (click)="fileInput.click()">
-         <ion-icon name="cloud-upload-outline"></ion-icon>
-     </ion-fab-button>
- </ion-fab>
-
+  <!-- Disparo del evento click de fileInput -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+    <ion-fab-button (click)="fileInput.click()">
+      <ion-icon name="cloud-upload-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
