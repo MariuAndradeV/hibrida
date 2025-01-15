@@ -1,89 +1,113 @@
-
 import { Component, signal, ViewChild, ElementRef } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonCard } from '@ionic/angular/standalone';
+import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
+
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonButton, IonList, IonItem, IonLabel, IonFab, IonFabButton, IonIcon, IonCard, IonCardHeader, IonCardTitle     } from '@ionic/angular/standalone';
 import { ExploreContainerComponent } from '../explore-container/explore-container.component';
 
- /* Importe la función y el ícono */
- import { addIcons } from 'ionicons';
- import { cloudUploadOutline } from 'ionicons/icons';
+/* Importe la función y el ícono */
+import { addIcons } from 'ionicons';
+import { cloudUploadOutline } from 'ionicons/icons';
 
- /* Importe el servicio */
- import { TeachablemachineService } from '../services/teachablemachine.service';
+/* Importe HttpClient para hacer solicitudes HTTP */
+import { HttpClient } from '@angular/common/http';
 
-  /* Importe el pipe */
+/* Importe el pipe */
 import { PercentPipe } from '@angular/common';
+
+import { CommonModule } from '@angular/common'; // Importa CommonModule
+
+
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, IonFab, IonFabButton, IonIcon, IonCard, IonCardContent, IonButton, IonList, IonItem, IonLabel, PercentPipe ],
+  imports: [HttpClientModule, CommonModule,IonHeader, IonToolbar, IonTitle, IonContent, ExploreContainerComponent, IonFab, IonFabButton, IonIcon, IonCard, IonCardContent, IonButton, IonList, IonItem, IonLabel, PercentPipe, IonCardHeader, IonCardTitle],
 })
 
 export class Tab1Page {
 
+  imageFile: File | null = null;
 
-  /* Declare la referencia al elemento con el id image */
   @ViewChild('image', { static: false }) imageElement!: ElementRef<HTMLImageElement>;
 
-  imageReady = signal(false)
-  imageUrl = signal("")
+  imageReady = signal(false);
+  imageUrl = signal("");
 
-  /* El método onSubmit para enviar los datos del formulario mediante el servicio */
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-
-    if (input.files && input.files.length > 0) {
-        const file = input.files[0];
-        console.log(file)
-
-        const reader = new FileReader();
-
-        // Convertir el archivo a una URL base64 para mostrarlo en el html
-        reader.onload = () => {
-            this.imageUrl.set(reader.result as string)
-            this.imageReady.set(true)
-        };
-
-        reader.readAsDataURL(file); // Leer el archivo como base64
-    }
-  }
-
-  /* Declare los atributos para almacenar el modelo y la lista de clases */
-  modelLoaded = signal(false);
-  classLabels: string[] = [];
-
-
-  /* Registre el servicio en el constructor */
-  constructor(private teachablemachine: TeachablemachineService) {              
-    addIcons({ cloudUploadOutline });
-  }
-
-  /* Método ngOnInit para cargar el modelo y las clases */
-  async ngOnInit() {
-    await this.teachablemachine.loadModel()
-    this.classLabels = this.teachablemachine.getClassLabels()
-    this.modelLoaded.set(true)
-  }
+  /* URL del backend */
+  private apiUrl = 'https://cookfinderbackend.onrender.com/detect/'; // Cambia a tu URL del backend
 
   /* Lista de predicciones */
   predictions: any[] = [];
 
-  /* Método para obtener la predicción a partir de la imagen */
-  async predict() {
+  constructor(private http: HttpClient) {
+    addIcons({ cloudUploadOutline });
+  }
 
-    if (!this.imageElement) {
-      console.error('El elemento de la imagen no está inicializado.');
+  /* Método para manejar la selección de un archivo */
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+  
+    if (input.files && input.files.length > 0) {
+      this.imageFile = input.files[0];
+      console.log(this.imageFile);
+  
+      const reader = new FileReader();
+  
+      // Convertir el archivo a una URL base64 para mostrarlo en el HTML
+      reader.onload = () => {
+        this.imageUrl.set(reader.result as string);
+        this.imageReady.set(true);
+      };
+  
+      reader.readAsDataURL(this.imageFile); // Leer el archivo como base64
+    }
+  }
+    
+
+  /* Método para enviar la imagen al backend y obtener predicciones */
+  predict(): void {
+    if (!this.imageFile) {
       alert('Primero debes cargar una imagen.');
       return;
-  }
-      try {
-          const image = this.imageElement.nativeElement;
-          this.predictions = await this.teachablemachine.predict(image);
-      } catch (error) {
-          console.error(error);
-          alert('Error al realizar la predicción.');
+    }
+    const formData = new FormData();
+    formData.append('file', this.imageFile);
+  
+    this.http.post<{ detections: any[] }>(this.apiUrl, formData).subscribe(
+      (response) => {
+        this.predictions = response.detections;
+        console.log('Predicciones:', this.predictions);
+      },
+      (error) => {
+        console.error('Error al realizar la predicción:', error);
+        alert('Hubo un problema al conectarse al servidor.');
       }
+    );
   }
+
+  recipe: string = ''; // Variable para almacenar la receta generada
+
+  /* Método para generar la receta */
+  generateRecipe(): void {
+    if (this.predictions.length === 0) {
+      alert('Primero debes cargar una imagen y obtener predicciones.');
+      return;
+    }
+  
+    const ingredients = this.predictions.map((pred) => pred.class); // Obtener los ingredientes de las predicciones
+    const requestBody = { ingredients };
+  
+    this.http.post<{ recipe: string }>('https://cookfinderbackend.onrender.com/generate-recipe/', requestBody).subscribe(
+      (response) => {
+        this.recipe = response.recipe;
+        console.log('Receta generada:', this.recipe);
+      },
+      (error) => {
+        console.error('Error al generar la receta:', error);
+        alert('Hubo un problema al conectarse al servidor.');
+      }
+    );
+  }  
 }
