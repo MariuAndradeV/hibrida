@@ -26,7 +26,7 @@
     </ion-card>
 
     <!-- Muestra las predicciones -->
-    <ion-card *ngIf="predictions.length > 0">
+    <ion-card *ngIf="predictions.length > 0" class="centered-card">
       <ion-card-header>
         <ion-card-title>Resultados de la Predicción</ion-card-title>
       </ion-card-header>
@@ -34,18 +34,13 @@
         <p *ngFor="let prediction of predictions">
           {{ prediction.class }} - {{ prediction.confidence | percent }}
         </p>
-        <div class="ion-text-center ion-padding-top ion-padding-bottom">
-          <ion-button (click)="generateRecipe()" fill="outline" color="primary">
-            Generar Receta
-          </ion-button>
-        </div>
       </ion-card-content>
     </ion-card>
 
     <!-- Muestra la receta generada -->
-    <ion-card *ngIf="recipe">
-      <ion-card-header>
-        <ion-card-title>Receta Generada</ion-card-title>
+    <ion-card *ngIf="recipe" >
+      <ion-card-header class="centered-card">
+        <ion-card-title>La mejor receta es:</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <pre>{{ recipe }}</pre>

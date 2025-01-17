@@ -74,11 +74,16 @@ export class Tab1Page {
     }
     const formData = new FormData();
     formData.append('file', this.imageFile);
-  
+
     this.http.post<{ detections: any[] }>(this.apiUrl, formData).subscribe(
       (response) => {
         this.predictions = response.detections;
         console.log('Predicciones:', this.predictions);
+
+        // Generar la receta automáticamente después de obtener las predicciones
+        if (this.predictions.length > 0) {
+          this.generateRecipe();
+        }
       },
       (error) => {
         console.error('Error al realizar la predicción:', error);
@@ -109,5 +114,5 @@ export class Tab1Page {
         alert('Hubo un problema al conectarse al servidor.');
       }
     );
-  }  
+  }
 }

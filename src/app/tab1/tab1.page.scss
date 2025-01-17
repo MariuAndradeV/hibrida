@@ -1,9 +1,29 @@
 img {
-    width: 100vw;
-    height: 30vh;
+    padding-top: 1rem;
+
+    width: auto;
+    height: 50vh;
     object-fit: cover;
+    
+    display: block;
+    margin: 0 auto;
+  
 }
 
 ion-button {
     margin: 0 auto;
 }
+
+.centered-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto; /* Centrar horizontalmente */
+
+    p{
+        color: white;
+    }
+}
+  
