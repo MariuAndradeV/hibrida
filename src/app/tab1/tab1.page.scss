@@ -1,48 +1,74 @@
-img {
-  padding-top: 3rem;
-  width: auto;
-  height: 50vh;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto;
-}
-
-.titulosCard {
-  font-size: 2rem; /* Cambié "size" por "font-size" */
-  font-weight: bold;
-  font-family: "Georgia";
-  color: rgb(255, 221, 0);
-}
-
-ion-button {
-  margin: 0 auto;
+ion-content {
+  --padding-top: 0;
+  --padding-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  overflow-y: hidden; /* Evita scroll horizontal */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  --padding-top: 0.5rem; 
+  --padding-bottom: 1rem; 
 }
 
 ion-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centra horizontalmente el header y el botón */
-  max-width: 100%; /* Garantiza que el card no exceda el ancho de la pantalla */
-  box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 1rem auto; /* Centra los cards */
+  padding: 1rem;
+  overflow-x: hidden; /* Evita scroll horizontal */
+  padding-top: 4rem auto !important;
+  padding-bottom: 4rem auto !important;
+
 }
 
-ion-card-header {
-  text-align: center; /* Centra el texto del header */
-  width: 100%; /* Se asegura que ocupe todo el ancho del card */
-}
-
-ion-card-content {
-  text-align: left; /* Alinea el contenido a la izquierda */
-  width: 100%; /* Asegura que el contenido ocupe todo el ancho del card */
-  overflow-wrap: break-word; /* Ajusta el texto largo para que no genere scroll */
-  white-space: pre-wrap; /* Mantiene los saltos de línea en el contenido */
-  max-height: 300px; /* Limita la altura máxima del contenido */
-  overflow-y: auto; /* Permite el scroll vertical si el contenido excede la altura */
-  padding-right: 1rem; /* Asegura que no haya texto pegado al borde */
+img {
+  max-width: 25rem; /* El ancho máximo de la imagen es 25rem */
+  width: 100%; /* La imagen se ajusta al ancho del contenedor */
+  height: auto; /* Mantiene la proporción de la imagen */
+  display: block; /* Centra la imagen si hay un margen automático */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+  object-fit: cover; /* Asegura que la imagen se recorte correctamente si es necesario */
 }
 
 ion-button {
-  margin-top: 1rem; /* Agrega espacio superior al botón */
-  align-self: center; /* Centra el botón */
-  padding-bottom: 3rem;
+  margin: 1rem auto;
+  align-self: center;
+}
+
+ion-card-content {
+  width: 100%; /* Asegura que el contenido ocupe todo el ancho del card */
+  text-align: left; /* Alinea el contenido a la izquierda */
+  overflow-wrap: break-word; /* Ajusta palabras largas para que no se desborden */
+  white-space: pre-wrap; /* Mantiene los saltos de línea pero permite el ajuste automático de líneas */
+  word-wrap: break-word; /* Asegura que palabras largas se ajusten */
+  overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+pre {
+  white-space: pre-wrap; /* Mantiene los saltos de línea pero permite el ajuste automático */
+  word-wrap: break-word; /* Asegura que palabras largas se ajusten */
+  overflow-x: auto; /* Permite un scroll horizontal solo dentro del <pre>, si es necesario */
+  max-width: 100%; /* Restringe el ancho máximo al contenedor padre */
+  margin: 0; /* Elimina márgenes adicionales */
+  padding: 1rem; /* Opcional: agrega espacio interno */
+  box-sizing: border-box; /* Incluye padding en el tamaño total */
+}
+
+.textoColor{
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgb(255, 198, 99);
+  text-align: center !important;
+}
+.subTextoColor{
+  color: rgb(255, 255, 255);
+  text-align: left !important;
+}
+
+.izquiTexto{
+  text-align: center !important;
 }
