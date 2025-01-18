@@ -68,6 +68,8 @@ export class Tab1Page {
 
   /* Método para enviar la imagen al backend y obtener predicciones */
   predict(): void {
+    console.log("Llamando a la nube")
+
     if (!this.imageFile) {
       alert('Primero debes cargar una imagen.');
       return;
@@ -115,4 +117,9 @@ export class Tab1Page {
       }
     );
   }
+
+  guardarReceta() {
+    console.log('exito, mensaje predeterminado');
+  }  
+  
 }

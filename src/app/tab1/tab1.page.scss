@@ -1,29 +1,48 @@
 img {
-    padding-top: 1rem;
+  padding-top: 3rem;
+  width: auto;
+  height: 50vh;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
 
-    width: auto;
-    height: 50vh;
-    object-fit: cover;
-    
-    display: block;
-    margin: 0 auto;
-  
+.titulosCard {
+  font-size: 2rem; /* Cambié "size" por "font-size" */
+  font-weight: bold;
+  font-family: "Georgia";
+  color: rgb(255, 221, 0);
 }
 
 ion-button {
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
-.centered-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin: 0 auto; /* Centrar horizontalmente */
-
-    p{
-        color: white;
-    }
+ion-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente el header y el botón */
+  max-width: 100%; /* Garantiza que el card no exceda el ancho de la pantalla */
+  box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
 }
-  
+
+ion-card-header {
+  text-align: center; /* Centra el texto del header */
+  width: 100%; /* Se asegura que ocupe todo el ancho del card */
+}
+
+ion-card-content {
+  text-align: left; /* Alinea el contenido a la izquierda */
+  width: 100%; /* Asegura que el contenido ocupe todo el ancho del card */
+  overflow-wrap: break-word; /* Ajusta el texto largo para que no genere scroll */
+  white-space: pre-wrap; /* Mantiene los saltos de línea en el contenido */
+  max-height: 300px; /* Limita la altura máxima del contenido */
+  overflow-y: auto; /* Permite el scroll vertical si el contenido excede la altura */
+  padding-right: 1rem; /* Asegura que no haya texto pegado al borde */
+}
+
+ion-button {
+  margin-top: 1rem; /* Agrega espacio superior al botón */
+  align-self: center; /* Centra el botón */
+  padding-bottom: 3rem;
+}
