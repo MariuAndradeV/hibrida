@@ -15,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { PercentPipe } from '@angular/common';
 
 import { CommonModule } from '@angular/common'; // Importa CommonModule
-
+import { RecipeService } from '../services/recipe.service';
 
 
 @Component({
@@ -28,6 +28,7 @@ import { CommonModule } from '@angular/common'; // Importa CommonModule
 
 export class Tab1Page {
 
+  
   imageFile: File | null = null;
 
   @ViewChild('image', { static: false }) imageElement!: ElementRef<HTMLImageElement>;
@@ -41,7 +42,7 @@ export class Tab1Page {
   /* Lista de predicciones */
   predictions: any[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private recipeService: RecipeService) {
     addIcons({ cloudUploadOutline });
   }
 
@@ -118,8 +119,13 @@ export class Tab1Page {
     );
   }
 
-  guardarReceta() {
-    console.log('exito, mensaje predeterminado');
-  }  
+   guardarReceta(): void {
+    if (this.recipe) {
+      this.recipeService.addRecipe(this.recipe);
+      alert('Receta guardada en el historial.');
+    } else {
+      alert('No hay receta para guardar.');
+    }
+  } 
   
 }

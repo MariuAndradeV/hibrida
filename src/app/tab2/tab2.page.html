@@ -1,59 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Retroalimentación
-    </ion-title>
+    <ion-title>Historial de Recetas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-card class="ion-padding-bottom ion-margin-bottom">
-
+  <ion-card *ngFor="let recipe of recipes">
     <ion-card-header>
-      <ion-card-title>Su opinión es importante</ion-card-title>
+      <ion-card-title>Receta</ion-card-title>
     </ion-card-header>
-
-    <ion-card-content class="ion-text-center">
-
-      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
-         
-        <ion-select formControlName="score" label="Calificación" placeholder="Seleccione un valor">
-          <ion-select-option value="bueno">Bueno</ion-select-option>
-          <ion-select-option value="regular">Regular</ion-select-option>
-          <ion-select-option value="malo">Malo</ion-select-option>
-        </ion-select>
-
-        <ion-textarea formControlName="opinion" label="Opinión" placeholder="Agregue aquí su descripción"></ion-textarea>
-         
-        <ion-button type="submit" [disabled]="!myForm.valid">Enviar</ion-button>
-         
-      </form>
-
+    <ion-card-content>
+      <pre>{{ recipe }}</pre>
     </ion-card-content>
   </ion-card>
-
-  <ion-card class="ion-padding-bottom ion-margin-bottom">
-
-        <ion-card-header>
-            <ion-card-title>Opiniones</ion-card-title>
-        </ion-card-header>
-
-        <ion-card-content>
-
-        <ion-list>
-          <!-- CARGA DE DATOS - INICIO -->
-          @for (datum of dataList; track $index) {
-              <ion-item>
-                <ion-label>  {{  datum?.score  }}  </ion-label>
-                <ion-label>  {{  datum?.opinion  }}  </ion-label>
-              </ion-item>
-          }
-          <!-- CARGA DE DATOS - FIN -->
-        </ion-list>
-
-        </ion-card-content>
-    </ion-card>
-
 </ion-content>
 
