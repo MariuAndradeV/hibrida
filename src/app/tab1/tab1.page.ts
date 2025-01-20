@@ -115,7 +115,8 @@ export class Tab1Page {
 
     this.http.post<{ recipe: string }>('https://cookfinderbackend.onrender.com/generate-recipe/', requestBody).subscribe(
       (response) => {
-        this.recipe = response.recipe;
+        this.recipe = response.recipe.replace(/\*\*/g, '');
+
         console.log('Receta generada:', this.recipe);
       },
       (error) => {
