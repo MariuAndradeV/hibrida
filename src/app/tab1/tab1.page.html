@@ -40,7 +40,7 @@
       <ion-card-title class="titulosCard textoColor">La mejor receta es:</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <pre class="subTextoColor"><div [innerHTML]="recipe"]></div></pre>
+      <pre class="subTextoColor">{{ recipe }}</pre>
     </ion-card-content>
     <div class="ion-text-center ion-padding-top ion-padding-bottom">
       <ion-button (click)="guardarReceta()" fill="outline" color="success">
