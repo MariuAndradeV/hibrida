@@ -13,6 +13,12 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="upload-indicator" *ngIf="!imageReady()">
+    <p>Te recomendamos leer las instrucciones en Información</p>
+    <p style="margin-bottom: 0.1em">Subir Imagen</p>
+    <p style="font-size: 1.5em;margin-top:0.1em">👇</p>
+  </div>
+
   <!-- Contenido principal -->
   <ion-card *ngIf="imageReady()">
     <img #image [src]="imageUrl()" alt="Imagen seleccionada" />

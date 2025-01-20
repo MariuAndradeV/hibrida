@@ -9,8 +9,8 @@ ion-content {
   overflow-y: hidden; /* Evita scroll horizontal */
   padding-top: 1rem;
   padding-bottom: 1rem;
-  --padding-top: 0.5rem; 
-  --padding-bottom: 1rem; 
+  --padding-top: 0.5rem;
+  --padding-bottom: 1rem;
 }
 
 ion-card {
@@ -46,6 +46,17 @@ ion-card-content {
   white-space: pre-wrap; /* Mantiene los saltos de línea pero permite el ajuste automático de líneas */
   word-wrap: break-word; /* Asegura que palabras largas se ajusten */
   overflow-x: hidden; /* Evita el scroll horizontal */
+}
+
+.upload-indicator {
+  color: #827C81;
+  padding-top: 7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 3em;
 }
 
 pre {
