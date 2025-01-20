@@ -1,24 +1,54 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Acerca de
+      Como Usar
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
 
+  <div id='logo-container'>
+    <img id='logo' src='../../assets/images/logo.png' alt='logo'>
+  </div>
+
   <ion-card>
     <ion-card-header>
 
-      <ion-card-title class="titulo">Descripción</ion-card-title>
-       
+      <ion-card-title class="titulo">Contribuidores</ion-card-title>
+
     </ion-card-header>
-     
+
     <ion-card-content>
-      <p id="descripcion">
-      Una aplicación móvil desarrollada en Angular Ionic es un software multiplataforma que utiliza el framework Angular para construir la lógica y la estructura de la aplicación, junto con el framework Ionic para crear una interfaz de usuario atractiva y funcional. Ionic proporciona componentes y herramientas para diseñar aplicaciones que se sienten y se ven nativas en dispositivos iOS y Android. La aplicación se puede desplegar tanto en la web como en tiendas de aplicaciones móviles. Utiliza tecnologías web como HTML, CSS y JavaScript, lo que facilita la reutilización de código y la implementación rápida.
-      </p>
+      <div id="contribuidores">
+        <p class="text-instrucciones">● Mariu Andrade</p>
+        <p class="text-instrucciones">● Alexandre Icaza</p>
+        <p class="text-instrucciones">● Jose Chong</p>
+      </div>
+
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+
+      <ion-card-title class="titulo">Instrucciones</ion-card-title>
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <h1 class="titulo-instrucciones">¿Como consigo mi receta?</h1>
+        <p class="text-instrucciones"><b>1.</b> Subir una imagen<br></p>
+        <p class="text-instrucciones"><b>2.</b> Presionar el botón de detectar ingredientes<br></p>
+        <p class="text-instrucciones"><b>3.</b> Esperar la respuesta (puede tomar de 3 a 4 minutos)<br></p>
+      <br>
+      <h1 class="titulo-instrucciones">¿Puedo guardar mi receta?</h1>
+      <p class="text-instrucciones">Si, se puede usar el botón de guardar receta a favoritos para guardar las recetas que te gustaron <br></p>
+      <br>
+      <h1 class="titulo-instrucciones">¿Donde puedo ver mis recetas guardadas?</h1>
+      <p class="text-instrucciones">Las recetas guardadas están en la pestaña de guardados, ahí encontrarás todas tus recetas favoritas<br></p>
+      <br>
+
     </ion-card-content>
 
   </ion-card>

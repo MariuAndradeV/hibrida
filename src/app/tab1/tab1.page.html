@@ -18,7 +18,8 @@
     <img #image [src]="imageUrl()" alt="Imagen seleccionada" />
     <div class="ion-text-center ion-padding-top ion-padding-bottom">
       <ion-button (click)="predict()" fill="outline" color="success">
-        Detectar ingredientes
+        <p *ngIf="!loading()">Detectar ingredientes</p>
+        <p *ngIf="loading()">Cargando...</p>
       </ion-button>
     </div>
   </ion-card>
@@ -39,7 +40,7 @@
       <ion-card-title class="titulosCard textoColor">La mejor receta es:</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <pre class="subTextoColor">{{ recipe }}</pre>
+      <pre class="subTextoColor"><div [innerHTML]="recipe"]></div></pre>
     </ion-card-content>
     <div class="ion-text-center ion-padding-top ion-padding-bottom">
       <ion-button (click)="guardarReceta()" fill="outline" color="success">

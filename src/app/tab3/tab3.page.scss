@@ -1,9 +1,34 @@
 .titulo {
-    color: var(--ion-color-primary);
-      font-weight: bold;
-      text-align: center;
-  }
- 
-  p#descripcion {
-    text-align: justify;
-  }
+  color: var(--ion-color-primary);
+  font-weight: bold;
+  font-size: 2em;
+}
+
+p#descripcion {
+  text-align: justify;
+}
+
+#contribuidores {
+  padding-bottom: 0.25em;
+}
+
+#logo {
+  width: 20em;
+}
+
+#logo-container {
+  display: flex;
+  justify-content: center;
+  padding: 2em;
+}
+
+.titulo-instrucciones {
+  font-weight: 600;
+  padding: 0.5em;
+  padding-left: 0;
+}
+
+.text-instrucciones {
+  font-size: 1.25em;
+  padding-bottom: 0.1em
+}

@@ -28,13 +28,15 @@ import { RecipeService } from '../services/recipe.service';
 
 export class Tab1Page {
 
-  
+
   imageFile: File | null = null;
 
   @ViewChild('image', { static: false }) imageElement!: ElementRef<HTMLImageElement>;
 
   imageReady = signal(false);
   imageUrl = signal("");
+
+  loading = signal(false);
 
   /* URL del backend */
   private apiUrl = 'https://cookfinderbackend.onrender.com/detect/'; // Cambia a tu URL del backend
@@ -49,23 +51,23 @@ export class Tab1Page {
   /* Método para manejar la selección de un archivo */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-  
+
     if (input.files && input.files.length > 0) {
       this.imageFile = input.files[0];
       console.log(this.imageFile);
-  
+
       const reader = new FileReader();
-  
+
       // Convertir el archivo a una URL base64 para mostrarlo en el HTML
       reader.onload = () => {
         this.imageUrl.set(reader.result as string);
         this.imageReady.set(true);
       };
-  
+
       reader.readAsDataURL(this.imageFile); // Leer el archivo como base64
     }
   }
-    
+
 
   /* Método para enviar la imagen al backend y obtener predicciones */
   predict(): void {
@@ -75,6 +77,9 @@ export class Tab1Page {
       alert('Primero debes cargar una imagen.');
       return;
     }
+
+    this.loading.set(true)
+
     const formData = new FormData();
     formData.append('file', this.imageFile);
 
@@ -87,6 +92,7 @@ export class Tab1Page {
         if (this.predictions.length > 0) {
           this.generateRecipe();
         }
+        this.loading.set(false);
       },
       (error) => {
         console.error('Error al realizar la predicción:', error);
@@ -103,10 +109,10 @@ export class Tab1Page {
       alert('Primero debes cargar una imagen y obtener predicciones.');
       return;
     }
-  
+
     const ingredients = this.predictions.map((pred) => pred.class); // Obtener los ingredientes de las predicciones
     const requestBody = { ingredients };
-  
+
     this.http.post<{ recipe: string }>('https://cookfinderbackend.onrender.com/generate-recipe/', requestBody).subscribe(
       (response) => {
         this.recipe = response.recipe;
@@ -126,6 +132,6 @@ export class Tab1Page {
     } else {
       alert('No hay receta para guardar.');
     }
-  } 
-  
+  }
+
 }
